@@ -1,4 +1,4 @@
-package infiniteshield.pl.main;
+package pl.infiniteshield.main;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
@@ -10,7 +10,7 @@ import android.os.SystemClock;
 
 public class LauncherService extends IntentService {
     private static final int REQUEST_CODE = 1;
-    public static final String CHECKER_ACTION = "pl.coclauncher.LaunchAction";
+    public static final String LAUNCHER_ACTION = "pl.infiniteshield.LAUNCHER_ACTION";
 
     public LauncherService() {
         super("LauncherService");
@@ -45,7 +45,7 @@ public class LauncherService extends IntentService {
     }
 
     public static Intent getIntent(Context context) {
-        Intent newIntent = new Intent(CHECKER_ACTION);
+        Intent newIntent = new Intent(LAUNCHER_ACTION);
         newIntent.setClass(context, LauncherService.class);
         return newIntent;
     }

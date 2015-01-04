@@ -1,4 +1,4 @@
-package infiniteshield.pl.main;
+package pl.infiniteshield.main;
 
 public class Settings {
     public static final String PREFS_NAME = "MyPrefsFile";
