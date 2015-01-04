@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CoCLauncher</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="interval">Interval (in seconds):</string>
+    <string name="start_now">Start game now</string>
+    <string name="time_in_ms">Time in seconds</string>
+    <string name="bad_value_message">Sth went wrong</string>
+    <string name="launcher_service">Launcher service:</string>
+
+</resources>
