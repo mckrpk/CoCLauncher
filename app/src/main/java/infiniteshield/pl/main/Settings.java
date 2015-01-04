@@ -1,4 +1,4 @@
-package coclauncher.pl.coclauncher;
+package infiniteshield.pl.main;
 
 public class Settings {
     public static final String PREFS_NAME = "MyPrefsFile";

@@ -1,4 +1,4 @@
-package coclauncher.pl.coclauncher;
+package infiniteshield.pl.main;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

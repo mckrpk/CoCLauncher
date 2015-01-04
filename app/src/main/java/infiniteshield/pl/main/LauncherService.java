@@ -1,4 +1,4 @@
-package coclauncher.pl.coclauncher;
+package infiniteshield.pl.main;
 
 import android.app.AlarmManager;
 import android.app.IntentService;

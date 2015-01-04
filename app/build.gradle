@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.1"
 
     defaultConfig {
-        applicationId "coclauncher.pl.coclauncher"
+        applicationId "infiniteshield.pl"
         minSdkVersion 8
         targetSdkVersion 21
         versionCode 1
