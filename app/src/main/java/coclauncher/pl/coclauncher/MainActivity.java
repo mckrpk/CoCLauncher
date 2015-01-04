@@ -2,33 +2,23 @@ package coclauncher.pl.coclauncher;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity
 {
-	public static final String PREFS_NAME = "MyPrefsFile";
-	public static final String PREF_FREQUENCY = "pref_frequency";
-
-	private final static int DEFAULT_FREQUENCY = 2 * 60;
-	private Button startNowBtn;
-	private ToggleButton serviceToggle;
-	private EditText frequencyEditText;
+	private Button startBtn;
+	private TextView descriptionView;
 
 	@Override
 	protected void onDestroy()
 	{
-		try {
-			setPrefFrequency(Integer.valueOf(frequencyEditText.getText().toString()));
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 		super.onDestroy();
 	}
 
@@ -37,11 +27,17 @@ public class MainActivity extends ActionBarActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		startNowBtn = (Button) findViewById(R.id.start_now_btn);
-		serviceToggle = (ToggleButton) findViewById(R.id.service_toggle);
-		frequencyEditText = (EditText) findViewById(R.id.frequency_edit_text);
+		Button startNowBtn = (Button) findViewById(R.id.start_now_btn);
+		startBtn = (Button) findViewById(R.id.start_btn);
+		descriptionView = (TextView) findViewById(R.id.description_view);
 
-		frequencyEditText.setText(getPrefFrequency() + "");
+		if (isLauncherActive()) {
+			startBtn.setBackgroundResource(R.drawable.on);
+			descriptionView.setText(R.string.shield_active);
+		}else{
+			startBtn.setBackgroundResource(R.drawable.off);
+			descriptionView.setText(R.string.shield_not_active);
+		}
 
 		startNowBtn.setOnClickListener(new View.OnClickListener()
 		{
@@ -52,29 +48,32 @@ public class MainActivity extends ActionBarActivity
 				startActivity(launchIntent);
 			}
 		});
-
-		serviceToggle.setChecked(LauncherService.isLauncherActive(this));
-		serviceToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		startBtn.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			public void onClick(View v)
 			{
-				try {
+				if (isLauncherActive()) {
+					LauncherService.cancelChecker(MainActivity.this);
+					startBtn.setBackgroundResource(R.drawable.off);
+					descriptionView.setText(R.string.shield_not_active);
+					setPrefLauncherActive(false);
 
-					boolean launcherActive = LauncherService.isLauncherActive(MainActivity.this);
-					if (isChecked && !launcherActive) {
-						int frequency = 1000 * Integer.valueOf(frequencyEditText.getText().toString());
-						LauncherService.startLauncher(MainActivity.this, frequency);
-					} else if (!isChecked && launcherActive) {
-						LauncherService.cancelChecker(MainActivity.this);
-					}
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-					Toast.makeText(MainActivity.this, R.string.bad_value_message, Toast.LENGTH_SHORT);
+				} else {
+					LauncherService.startLauncher(MainActivity.this, Settings.DEFAULT_FREQUENCY);
+					startBtn.setBackgroundResource(R.drawable.on);
+					descriptionView.setText(R.string.shield_active);
+					setPrefLauncherActive(true);
 				}
 			}
 		});
+	}
+
+	private boolean isLauncherActive()
+	{
+		boolean launcherActive = LauncherService.isLauncherIntentActive(MainActivity.this);
+		boolean launcherActiveFromPrefs = getPrefLauncherActive();
+		return launcherActive && launcherActiveFromPrefs;
 	}
 
 
@@ -89,26 +88,27 @@ public class MainActivity extends ActionBarActivity
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		int id = item.getItemId();
-
-		if (id == R.id.action_settings) {
+		switch (id) {
+		case R.id.action_settings:
 			return true;
+		case R.id.action_test:
+			//			LauncherService.startLauncher(this, 15 * 1000);
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void setPrefFrequency(int frequency)
+	public void setPrefLauncherActive(boolean active)
 	{
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = getSharedPreferences(Settings.PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt(PREF_FREQUENCY, frequency);
+		editor.putBoolean(Settings.PREF_LAUNCHER_ACTIVE, active);
 		editor.commit();
 	}
 
-	public int getPrefFrequency()
+	public boolean getPrefLauncherActive()
 	{
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-		return settings.getInt(PREF_FREQUENCY, DEFAULT_FREQUENCY);
+		SharedPreferences settings = getSharedPreferences(Settings.PREFS_NAME, 0);
+		return settings.getBoolean(Settings.PREF_LAUNCHER_ACTIVE, false);
 	}
 
 }

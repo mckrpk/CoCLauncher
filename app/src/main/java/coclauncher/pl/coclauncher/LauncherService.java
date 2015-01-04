@@ -5,11 +5,11 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.os.SystemClock;
 
 public class LauncherService extends IntentService
 {
-
 	private static final int REQUEST_CODE = 1;
 	public static final String CHECKER_ACTION = "pl.coclauncher.LaunchAction";
 
@@ -21,6 +21,10 @@ public class LauncherService extends IntentService
 	@Override
 	protected void onHandleIntent(Intent intent)
 	{
+		PowerManager.WakeLock screenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(
+				PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
+		screenLock.acquire(Settings.DEFAULT_FREQUENCY + 3000);
+
 		Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans");
 		startActivity(launchIntent);
 	}
@@ -41,7 +45,7 @@ public class LauncherService extends IntentService
 		alarmManager.cancel(pendingIntent);
 	}
 
-	public static boolean isLauncherActive(Context context)
+	public static boolean isLauncherIntentActive(Context context)
 	{
 		return PendingIntent.getService(context, REQUEST_CODE, getIntent(context), PendingIntent.FLAG_NO_CREATE) != null;
 	}

@@ -9,5 +9,7 @@
     <string name="time_in_ms">Time in seconds</string>
     <string name="bad_value_message">Sth went wrong</string>
     <string name="launcher_service">Launcher service:</string>
+    <string name="shield_active">Shield active</string>
+    <string name="shield_not_active">Shield NOT active</string>
 
 </resources>

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -9,31 +9,15 @@
                 android:orientation="vertical"
                 tools:context=".MainActivity">
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-    <TextView
-            android:text="@string/interval"
-            android:layout_gravity="left|center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
-        <EditText android:id="@+id/frequency_edit_text" android:inputType="number" android:layout_width="200dp"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="right|center_vertical"
-                  android:hint="@string/time_in_ms"/>
-    </FrameLayout>
+    <Button android:id="@+id/start_btn" android:layout_width="200dp" android:layout_height="200dp"
+            android:layout_centerInParent="true"/>
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+    <TextView android:id="@+id/description_view" android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_marginBottom="20dp" android:text="@string/shield_not_active"/>
 
-        <TextView
-                android:text="@string/launcher_service"
-                android:layout_width="wrap_content"
-                android:layout_gravity="left|center_vertical"
-                android:layout_height="wrap_content"/>
-
-        <ToggleButton android:id="@+id/service_toggle" android:layout_gravity="right|center_vertical" android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"/>
-    </FrameLayout>
     <Button android:id="@+id/start_now_btn" android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="@string/start_now"/>
+            android:layout_centerHorizontal="true" android:layout_marginTop="20dp" android:text="@string/start_now"/>
 
-</LinearLayout>
+</RelativeLayout>
