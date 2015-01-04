@@ -4,30 +4,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
-    private Button startBtn;
-    private TextView descriptionView;
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button startNowBtn = (Button) findViewById(R.id.start_now_btn);
-        startBtn = (Button) findViewById(R.id.start_btn);
-        descriptionView = (TextView) findViewById(R.id.description_view);
 
-        if (isLauncherActive()) {
+        final Button startNowBtn = (Button) findViewById(R.id.start_now_btn);
+        final Button startBtn = (Button) findViewById(R.id.start_btn);
+        final TextView descriptionView = (TextView) findViewById(R.id.description_view);
+
+        if (isLauncherIntentActive()) {
             startBtn.setBackgroundResource(R.drawable.on);
             descriptionView.setText(R.string.shield_active);
         } else {
@@ -45,7 +37,7 @@ public class MainActivity extends ActionBarActivity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isLauncherActive()) {
+                if (isLauncherIntentActive()) {
                     LauncherService.cancelChecker(MainActivity.this);
                     startBtn.setBackgroundResource(R.drawable.off);
                     descriptionView.setText(R.string.shield_not_active);
@@ -61,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    private boolean isLauncherActive() {
+    private boolean isLauncherIntentActive() {
         boolean launcherActive = LauncherService.isLauncherIntentActive(MainActivity.this);
         boolean launcherActiveFromPrefs = getPrefLauncherActive();
         return launcherActive && launcherActiveFromPrefs;
