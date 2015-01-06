@@ -18,7 +18,8 @@ public class IntentReceiver extends IntentService {
 
         int delay = RandomDelay.getNext();
         Log.d("coc", "onHandleIntent: " + delay);
-        Global.app.intentSender.sendAfterDelay(delay); // send next intent after random delay
+        IntentSender intentSender = new IntentSender(this);
+        intentSender.sendAfterDelay(delay); // send next intent after random delay
 
         PowerManager.WakeLock screenLock = ((PowerManager) getSystemService(POWER_SERVICE)).newWakeLock(
                 PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");

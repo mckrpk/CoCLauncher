@@ -24,7 +24,9 @@ public class MainActivity extends ActionBarActivity {
         shieldStatus = (TextView) findViewById(R.id.shield_status);
         startClashOfClans = (Button) findViewById(R.id.start_clash_of_clans);
 
-        if (Global.app.intentSender.isDelayingToSend()) {
+        final IntentSender intentSender = new IntentSender(this);
+
+        if (intentSender.isDelayingToSend()) {
             setShield(true);
         } else {
             setShield(false);
@@ -41,12 +43,12 @@ public class MainActivity extends ActionBarActivity {
         startShield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Global.app.intentSender.isDelayingToSend()) {
-                    Global.app.intentSender.cancelSendAfterDelay();
+                if (intentSender.isDelayingToSend()) {
+                    intentSender.cancelSendAfterDelay();
                     setShield(false);
 
                 } else {
-                    Global.app.intentSender.sendAfterDelay(DELAY_AFTER_START_SHIELD_PRESS);
+                    intentSender.sendAfterDelay(DELAY_AFTER_START_SHIELD_PRESS);
                     setShield(true);
                 }
             }
