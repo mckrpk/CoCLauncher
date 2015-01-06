@@ -13,16 +13,15 @@ public class IntentReceiver extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        int delay = intent.getIntExtra(IntentSender.LAUNCH_DELAY_KEY, MainActivity.DELAY_AFTER_START_SHIELD_PRESS);
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans");
+        startActivity(launchIntent);
+
+        int delay = RandomDelay.getNext();
+        Log.d("coc", "onHandleIntent: " + delay);
+        Global.app.intentSender.sendAfterDelay(delay); // send next intent after random delay
 
         PowerManager.WakeLock screenLock = ((PowerManager) getSystemService(POWER_SERVICE)).newWakeLock(
                 PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
         screenLock.acquire(delay + 3000);
-        Log.d("coc", delay + " onHandleIntent");
-
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans");
-        startActivity(launchIntent);
-
-        Global.app.intentSender.sendAfterDelay(RandomDelay.getNext()); // send next intent after random delay
     }
 }
