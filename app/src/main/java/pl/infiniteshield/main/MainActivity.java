@@ -20,9 +20,9 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startShield = (Button) findViewById(R.id.start_btn);
-        shieldStatus = (TextView) findViewById(R.id.description_view);
-        startClashOfClans = (Button) findViewById(R.id.start_now_btn);
+        startShield = (Button) findViewById(R.id.start_shield);
+        shieldStatus = (TextView) findViewById(R.id.shield_status);
+        startClashOfClans = (Button) findViewById(R.id.start_clash_of_clans);
 
         if (Global.app.intentSender.isDelayingToSend()) {
             setShield(true);
