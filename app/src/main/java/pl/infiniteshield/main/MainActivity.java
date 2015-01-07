@@ -9,11 +9,8 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
-    public static final int DELAY_AFTER_START_SHIELD_PRESS = 3000;
-
     private Button startShield;
     private TextView shieldStatus;
-    private Button startClashOfClans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +19,6 @@ public class MainActivity extends ActionBarActivity {
 
         startShield = (Button) findViewById(R.id.start_shield);
         shieldStatus = (TextView) findViewById(R.id.shield_status);
-        startClashOfClans = (Button) findViewById(R.id.start_clash_of_clans);
 
         final IntentSender intentSender = new IntentSender(this);
 
@@ -32,14 +28,6 @@ public class MainActivity extends ActionBarActivity {
             setShield(false);
         }
 
-        startClashOfClans.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans");
-                startActivity(launchIntent);
-            }
-        });
-
         startShield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
                     setShield(false);
 
                 } else {
-                    intentSender.sendAfterDelay(DELAY_AFTER_START_SHIELD_PRESS);
+                    intentSender.sendAfterDelay(0);
                     setShield(true);
                 }
             }
