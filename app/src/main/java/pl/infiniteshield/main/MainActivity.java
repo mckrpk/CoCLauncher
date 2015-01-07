@@ -59,6 +59,7 @@ public class MainActivity extends ActionBarActivity {
         if (on) {
             startShield.setBackgroundResource(R.drawable.on);
             shieldStatus.setText(R.string.shield_active);
+            ScreenOffTimeout.setInfinite(this);
         } else {
             startShield.setBackgroundResource(R.drawable.off);
             shieldStatus.setText(R.string.shield_not_active);
