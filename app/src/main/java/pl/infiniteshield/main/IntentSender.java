@@ -11,34 +11,23 @@ public class IntentSender {
 
     private static final int REQUEST_CODE = 666;
 
-    private final AlarmManager alarmManager;
     private final Context context;
-    private PendingIntent alarmIntent;
 
     public IntentSender(Context context) {
         this.context = context;
-        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
     public void sendAfterDelay(final int delay) {
         Log.d("coc", "sendAfterDelay: " + delay);
 
-        Intent receiverIntent = createReceiverIntent();
-        alarmIntent = PendingIntent.getService(context, REQUEST_CODE, receiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + delay, alarmIntent);
+        getAlarmManager().set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + delay, getAlarmIntent());
         Prefs.setIsDelayingToSend(context, true);
-    }
-
-    private Intent createReceiverIntent() {
-        Intent receiverIntent = new Intent("pl.infiniteshield.LAUNCH_ACTION");
-        receiverIntent.setClass(context, IntentReceiver.class);
-        return receiverIntent;
     }
 
     public void cancelSendAfterDelay() {
         Log.d("coc", "cancelSendAfterDelay");
 
-        alarmManager.cancel(alarmIntent);
+        getAlarmManager().cancel(getAlarmIntent());
         Prefs.setIsDelayingToSend(context, false);
     }
 
@@ -46,5 +35,19 @@ public class IntentSender {
         Log.d("coc", "isDelayingToSend: " + Prefs.getIsDelayingToSend(context));
 
         return Prefs.getIsDelayingToSend(context);
+    }
+
+    private AlarmManager getAlarmManager() {
+        return (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+    }
+
+    private PendingIntent getAlarmIntent() {
+        return PendingIntent.getService(context, REQUEST_CODE, createReceiverIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private Intent createReceiverIntent() {
+        Intent receiverIntent = new Intent("pl.infiniteshield.LAUNCH_ACTION");
+        receiverIntent.setClass(context, IntentReceiver.class);
+        return receiverIntent;
     }
 }
