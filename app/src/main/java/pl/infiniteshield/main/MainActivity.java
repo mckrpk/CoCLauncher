@@ -1,8 +1,8 @@
 package pl.infiniteshield.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,15 +10,17 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
 
     private Button startShield;
-    private TextView shieldStatus;
+	private TextView shieldStatusTop;
+	private TextView shieldStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main);
 
         startShield = (Button) findViewById(R.id.start_shield);
         shieldStatus = (TextView) findViewById(R.id.shield_status);
+        shieldStatusTop = (TextView) findViewById(R.id.shield_status_top);
 
         final IntentSender intentSender = new IntentSender(this);
 
@@ -43,14 +45,16 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    private void setShield(boolean on) {
+	private void setShield(boolean on) {
         if (on) {
-            startShield.setBackgroundResource(R.drawable.on);
-            shieldStatus.setText(R.string.shield_active);
-            ScreenOffTimeout.setInfinite(this);
-        } else {
-            startShield.setBackgroundResource(R.drawable.off);
-            shieldStatus.setText(R.string.shield_not_active);
+			startShield.setBackgroundResource(R.drawable.on);
+			shieldStatus.setText(R.string.shield_active);
+			shieldStatusTop.setText(R.string.shield_active_top);
+			ScreenOffTimeout.setInfinite(this);
+		} else {
+			startShield.setBackgroundResource(R.drawable.off);
+			shieldStatusTop.setText(R.string.shield_not_active_top);
+			shieldStatus.setText(R.string.shield_not_active);
         }
     }
 

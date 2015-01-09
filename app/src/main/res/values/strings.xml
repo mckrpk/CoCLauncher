@@ -8,6 +8,8 @@
     <string name="bad_value_message">Sth went wrong</string>
     <string name="launcher_service">Launcher service:</string>
     <string name="shield_active">Stop Infinite Shield</string>
+    <string name="shield_active_top">Infinite Shield active</string>
+    <string name="shield_not_active_top">Infinite Shield not active</string>
     <string name="shield_not_active">Start Clash of Clans and never logout</string>
 
 </resources>

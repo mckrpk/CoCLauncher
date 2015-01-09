@@ -29,7 +29,8 @@ public class IntentSender {
 
         getAlarmManager().cancel(getAlarmIntent());
         Prefs.setIsDelayingToSend(context, false);
-    }
+		ScreenOffTimeout.restoreUserScreenSetting(context);
+	}
 
     public boolean isDelayingToSend() {
         Log.d("coc", "isDelayingToSend: " + Prefs.getIsDelayingToSend(context));
