@@ -13,6 +13,10 @@ public class IntentReceiver extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        if (!Prefs.getIsDelayingToSend(this)) {
+            return;
+        }
+
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans");
         startActivity(launchIntent);
 
