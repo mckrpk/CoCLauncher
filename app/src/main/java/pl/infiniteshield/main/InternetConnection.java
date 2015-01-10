@@ -2,7 +2,6 @@ package pl.infiniteshield.main;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
 import java.lang.reflect.Field;
@@ -25,6 +24,11 @@ public class InternetConnection {
         wm.setWifiEnabled(enabled);
     }
 
+    private static boolean isNetworkEnabled(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
+    }
+
     private static void setNetworkEnabled(Context context, boolean enabled) {
         try {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -39,11 +43,6 @@ public class InternetConnection {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private static boolean isNetworkEnabled(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
     }
 
 }
