@@ -5,6 +5,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 public class InternetConnection {
 
     public static void setEnabled(Context context, boolean enabled) {
@@ -13,23 +16,34 @@ public class InternetConnection {
     }
 
     private static boolean isWifiEnabled(Context context) {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        return wifiManager.isWifiEnabled();
+        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        return wm.isWifiEnabled();
     }
 
     private static void setWifiEnabled(Context context, boolean enabled) {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        wifiManager.setWifiEnabled(enabled);
+        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        wm.setWifiEnabled(enabled);
     }
 
     private static void setNetworkEnabled(Context context, boolean enabled) {
-        // TODO: implement
+        try {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            Class conmanClass = Class.forName(cm.getClass().getName());
+            Field connectivityManagerField = conmanClass.getDeclaredField("mService");
+            connectivityManagerField.setAccessible(true);
+            Object connectivityManager = connectivityManagerField.get(cm);
+            Class connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
+            Method setMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
+            setMobileDataEnabledMethod.setAccessible(true);
+            setMobileDataEnabledMethod.invoke(connectivityManager, enabled);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static boolean isNetworkEnabled(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
     }
 
 }
