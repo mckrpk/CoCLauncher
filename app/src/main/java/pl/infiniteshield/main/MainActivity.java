@@ -2,6 +2,7 @@ package pl.infiniteshield.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
@@ -20,12 +21,6 @@ public class MainActivity extends ActionBarActivity {
         startShield = (Button) findViewById(R.id.start_shield);
         shieldStatus = (TextView) findViewById(R.id.shield_status);
 
-        if (Shield.isActivated(this)) {
-            updateUI(true);
-        } else {
-            updateUI(false);
-        }
-
         startShield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,10 +30,22 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (Shield.isActivated(this)) {
+            updateUI(true);
+        } else {
+            updateUI(false);
+        }
+    }
+
     private void updateUI(boolean shieldActive) {
         if (shieldActive) {
             startShield.setBackgroundResource(R.drawable.on);
             shieldStatus.setText(R.string.shield_active);
+            Prefs.setResetTime(this, SystemClock.elapsedRealtime() + RandomDelay.getNextLong());
         } else {
             startShield.setBackgroundResource(R.drawable.off);
             shieldStatus.setText(R.string.shield_not_active);
