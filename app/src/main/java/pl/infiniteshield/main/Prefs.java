@@ -7,7 +7,7 @@ public class Prefs {
 
     private static final String PREFS_FILENAME = "ShieldPrefs";
 
-    private static final String IS_DELAYING_TO_SEND_KEY = "IS_DELAYING_TO_SEND_KEY";
+    private static final String IS_DELAYING_TO_SEND = "IS_DELAYING_TO_SEND";
 
     private static final String USER_SCREEN_TIMEOUT = "USER_SCREEN_TIMEOUT";
     /* Have application changed screen sleep time to infinity? */
@@ -18,13 +18,13 @@ public class Prefs {
     public static void setIsDelayingToSend(Context context, boolean isDelayingToSend) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(IS_DELAYING_TO_SEND_KEY, isDelayingToSend);
+        editor.putBoolean(IS_DELAYING_TO_SEND, isDelayingToSend);
         editor.commit();
     }
 
     public static boolean getIsDelayingToSend(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
-        return settings.getBoolean(IS_DELAYING_TO_SEND_KEY, false);
+        return settings.getBoolean(IS_DELAYING_TO_SEND, false);
     }
 
     public static void setUserScreenTimeout(Context context, int userScreenTimeout) {
