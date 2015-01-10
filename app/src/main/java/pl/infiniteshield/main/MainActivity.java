@@ -10,7 +10,6 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
 
     private Button startShield;
-	private TextView shieldStatusTop;
 	private TextView shieldStatus;
 
     @Override
@@ -20,7 +19,6 @@ public class MainActivity extends ActionBarActivity {
 
         startShield = (Button) findViewById(R.id.start_shield);
         shieldStatus = (TextView) findViewById(R.id.shield_status);
-        shieldStatusTop = (TextView) findViewById(R.id.shield_status_top);
 
         final IntentSender intentSender = new IntentSender(this);
 
@@ -49,11 +47,9 @@ public class MainActivity extends ActionBarActivity {
         if (on) {
 			startShield.setBackgroundResource(R.drawable.on);
 			shieldStatus.setText(R.string.shield_active);
-			shieldStatusTop.setText(R.string.shield_active_top);
 			ScreenOffTimeout.setInfinite(this);
 		} else {
 			startShield.setBackgroundResource(R.drawable.off);
-			shieldStatusTop.setText(R.string.shield_not_active_top);
 			shieldStatus.setText(R.string.shield_not_active);
         }
     }
