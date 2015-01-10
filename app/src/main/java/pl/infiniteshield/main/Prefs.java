@@ -6,10 +6,14 @@ import android.content.SharedPreferences;
 public class Prefs {
 
     private static final String PREFS_FILENAME = "ShieldPrefs";
+
     private static final String IS_DELAYING_TO_SEND_KEY = "IS_DELAYING_TO_SEND_KEY";
-    private static final String USER_SLEEP_SETTING_KEY = "USER_SLEEP_SETTING_KEY";
-    private static final String IS_SCREEN_SETTING_CHANGED_KEY = "SETTING_CHANGED_KEY";
-    private static final String SHIELD_START_TIME_KEY = "SHIELD_START_TIME_KEY";
+
+    private static final String USER_SCREEN_TIMEOUT = "USER_SCREEN_TIMEOUT";
+    /* Have application changed screen sleep time to infinity? */
+    private static final String IS_USER_SCREEN_TIMEOUT_OVERRIDDEN = "IS_USER_SCREEN_TIMEOUT_OVERRIDDEN";
+
+    private static final String RESET_TIME = "RESET_TIME";
 
     public static void setIsDelayingToSend(Context context, boolean isDelayingToSend) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
@@ -23,44 +27,40 @@ public class Prefs {
         return settings.getBoolean(IS_DELAYING_TO_SEND_KEY, false);
     }
 
-    public static void setIsSettingChanged(Context context, boolean isScreenSettingChanged) {
+    public static void setUserScreenTimeout(Context context, int userScreenTimeout) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(IS_SCREEN_SETTING_CHANGED_KEY, isScreenSettingChanged);
+        editor.putInt(USER_SCREEN_TIMEOUT, userScreenTimeout);
         editor.commit();
     }
 
-    /**
-     * Have application already changed screen sleep time to infinity?
-     */
-    public static boolean getIsSettingChanged(Context context) {
+    public static int getUserScreenTimeout(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
-        return settings.getBoolean(IS_SCREEN_SETTING_CHANGED_KEY, false);
+        return settings.getInt(USER_SCREEN_TIMEOUT, Shield.DEFAULT_SCREEN_OFF_TIMEOUT);
     }
 
-    public static void setUserSleepSetting(Context context, int userSleepSetting) {
+    public static void setIsUserScreenTimeoutOverridden(Context context, boolean isUserScreenTimeoutOverridden) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(USER_SLEEP_SETTING_KEY, userSleepSetting);
+        editor.putBoolean(IS_USER_SCREEN_TIMEOUT_OVERRIDDEN, isUserScreenTimeoutOverridden);
         editor.commit();
     }
 
-    public static int getUserSleepSetting(Context context) {
+    public static boolean getIsUserScreenTimeoutOverridden(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
-        return settings.getInt(USER_SLEEP_SETTING_KEY, Shield.DEFAULT_SCREEN_OFF_TIMEOUT);
+        return settings.getBoolean(IS_USER_SCREEN_TIMEOUT_OVERRIDDEN, false);
     }
 
-    public static void setShieldStartTime(Context context, long time) {
+    public static void setResetTime(Context context, long time) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putLong(SHIELD_START_TIME_KEY, time);
+        editor.putLong(RESET_TIME, time);
         editor.commit();
     }
 
-    public static long getShieldStartTime(Context context) {
+    public static long getResetTime(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
-        return settings.getLong(SHIELD_START_TIME_KEY, System.currentTimeMillis());
+        return settings.getLong(RESET_TIME, System.currentTimeMillis());
     }
-
 
 }

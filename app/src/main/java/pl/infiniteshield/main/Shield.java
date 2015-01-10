@@ -26,18 +26,18 @@ public class Shield {
     }
 
     private static void setInfiniteScreen(Context context) {
-        if (!Prefs.getIsSettingChanged(context)) {
+        if (!Prefs.getIsUserScreenTimeoutOverridden(context)) {
             int previousSetting = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
                     DEFAULT_SCREEN_OFF_TIMEOUT);
-            Prefs.setUserSleepSetting(context, previousSetting);
+            Prefs.setUserScreenTimeout(context, previousSetting);
         }
-        Prefs.setIsSettingChanged(context, true);
+        Prefs.setIsUserScreenTimeoutOverridden(context, true);
         Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, INFINITE_SCREEN_OFF_TIMEOUT);
     }
 
     private static void restoreUserScreenSetting(Context context) {
-        int previousSetting = Prefs.getUserSleepSetting(context);
+        int previousSetting = Prefs.getUserScreenTimeout(context);
         Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, previousSetting);
-        Prefs.setIsSettingChanged(context, false);
+        Prefs.setIsUserScreenTimeoutOverridden(context, false);
     }
 }
