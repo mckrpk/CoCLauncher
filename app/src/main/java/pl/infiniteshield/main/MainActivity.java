@@ -1,11 +1,12 @@
 package pl.infiniteshield.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import pl.infiniteshield.main.widget.ShieldWidgetProvider;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -34,11 +35,11 @@ public class MainActivity extends ActionBarActivity {
                 if (intentSender.isDelayingToSend()) {
                     intentSender.cancelSendAfterDelay();
                     setShield(false);
-
                 } else {
                     intentSender.sendAfterDelay(0);
                     setShield(true);
                 }
+				sendBroadcast(new Intent(ShieldWidgetProvider.UPDATE_WIDGET_ACTION));
             }
         });
     }
