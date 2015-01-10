@@ -24,12 +24,12 @@ public class InternetConnection {
         return false;
     }
 
-    private static void setNetworkEnabled(Context context, boolean enabled) {
+    private static void setWifiEnabled(Context context, boolean enabled) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         wifiManager.setWifiEnabled(enabled);
     }
 
-    private static void setWifiEnabled(Context context, boolean enabled) {
+    private static void setNetworkEnabled(Context context, boolean enabled) {
         // TODO: implement
     }
 
