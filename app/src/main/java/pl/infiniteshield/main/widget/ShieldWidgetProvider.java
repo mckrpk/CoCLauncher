@@ -7,10 +7,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
-
-import pl.infiniteshield.main.IntentSender;
 import pl.infiniteshield.main.R;
-import pl.infiniteshield.main.ScreenOffTimeout;
+import pl.infiniteshield.main.Shield;
 
 public class ShieldWidgetProvider extends AppWidgetProvider {
 
@@ -22,12 +20,8 @@ public class ShieldWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-            final IntentSender intentSender = new IntentSender(context);
-            if (intentSender.isDelayingToSend()) {
-                views.setInt(R.id.widget_btn, "setBackgroundResource", R.drawable.widget_on);
-            } else {
-                views.setInt(R.id.widget_btn, "setBackgroundResource", R.drawable.widget_off);
-            }
+			int resId = Shield.isActivated(context) ? R.drawable.widget_on : R.drawable.widget_off;
+			views.setInt(R.id.widget_btn, "setBackgroundResource", resId);
 
             Intent toggleIntent = new Intent(context, ShieldWidgetProvider.class);
             toggleIntent.setAction(ShieldWidgetProvider.TOGGLE_ACTION);
@@ -52,19 +46,12 @@ public class ShieldWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
         if (action.equals(TOGGLE_ACTION)) {
-            final IntentSender intentSender = new IntentSender(context);
-            if (intentSender.isDelayingToSend()) {
-                views.setInt(R.id.widget_btn, "setBackgroundResource", R.drawable.widget_off);
-                intentSender.cancelSendAfterDelay();
-            } else {
-                intentSender.sendAfterDelay(0);
-                views.setInt(R.id.widget_btn, "setBackgroundResource", R.drawable.widget_on);
-                ScreenOffTimeout.setInfinite(context);
-            }
-            mgr.updateAppWidget(appWidgetId, views);
-        } else if (action.equals(UPDATE_WIDGET_ACTION)) {
-            final IntentSender intentSender = new IntentSender(context);
-            if (intentSender.isDelayingToSend()) {
+			boolean shieldActive = Shield.toggle(context);
+			int resId = shieldActive ? R.drawable.widget_on : R.drawable.widget_off;
+			views.setInt(R.id.widget_btn, "setBackgroundResource", resId);
+			mgr.updateAppWidget(appWidgetId, views);
+		} else if (action.equals(UPDATE_WIDGET_ACTION)) {
+            if (Shield.isActivated(context)) {
                 views.setInt(R.id.widget_btn, "setBackgroundResource", R.drawable.widget_on);
             } else {
                 views.setInt(R.id.widget_btn, "setBackgroundResource", R.drawable.widget_off);

@@ -21,7 +21,6 @@ public class IntentReceiver extends IntentService {
 
         int delay = RandomDelay.getNextShort();
         Log.d("coc", "onHandleIntent: " + delay);
-        IntentSender intentSender = new IntentSender(this);
-        intentSender.sendAfterDelay(delay); // send next intent after random delay
-    }
+		IntentSender.sendAfterDelay(this, delay); // send next intent after random delay
+	}
 }

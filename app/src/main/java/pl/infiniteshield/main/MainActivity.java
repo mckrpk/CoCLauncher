@@ -21,34 +21,26 @@ public class MainActivity extends ActionBarActivity {
         startShield = (Button) findViewById(R.id.start_shield);
         shieldStatus = (TextView) findViewById(R.id.shield_status);
 
-        final IntentSender intentSender = new IntentSender(this);
-
-        if (intentSender.isDelayingToSend()) {
-            setShield(true);
+        if (Shield.isActivated(this)) {
+            updateUI(true);
         } else {
-            setShield(false);
+            updateUI(false);
         }
 
         startShield.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (intentSender.isDelayingToSend()) {
-                    intentSender.cancelSendAfterDelay();
-                    setShield(false);
-                } else {
-                    intentSender.sendAfterDelay(0);
-                    setShield(true);
-                }
+            public void onClick(View v)
+			{
+				updateUI(Shield.toggle(MainActivity.this));
 				sendBroadcast(new Intent(ShieldWidgetProvider.UPDATE_WIDGET_ACTION));
-            }
-        });
+			}
+		});
     }
 
-	private void setShield(boolean on) {
-        if (on) {
+	private void updateUI(boolean shieldActive) {
+        if (shieldActive) {
 			startShield.setBackgroundResource(R.drawable.on);
 			shieldStatus.setText(R.string.shield_active);
-			ScreenOffTimeout.setInfinite(this);
 		} else {
 			startShield.setBackgroundResource(R.drawable.off);
 			shieldStatus.setText(R.string.shield_not_active);
