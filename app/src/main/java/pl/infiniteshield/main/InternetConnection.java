@@ -14,6 +14,9 @@ public class InternetConnection {
         setNetworkEnabled(context, enabled);
     }
 
+    /**
+     * @return True, if WiFi is enabled.
+     */
     private static boolean isWifiEnabled(Context context) {
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         return wm.isWifiEnabled();
@@ -24,6 +27,9 @@ public class InternetConnection {
         wm.setWifiEnabled(enabled);
     }
 
+    /**
+     * @return True, if network is enabled and WiFi is not.
+     */
     private static boolean isNetworkEnabled(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
