@@ -2,6 +2,8 @@ package pl.infiniteshield.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
+import android.util.Log;
 
 public class Prefs {
 
@@ -14,6 +16,8 @@ public class Prefs {
     private static final String IS_USER_SCREEN_TIMEOUT_OVERRIDDEN = "IS_USER_SCREEN_TIMEOUT_OVERRIDDEN";
 
     private static final String RESET_TIME = "RESET_TIME";
+    private static final String IS_USER_WIFI_OVERRIDDEN = "IS_USER_WIFI_OVERRIDDEN";
+    private static final String IS_USER_NETWORK_OVERRIDDEN = "IS_USER_NETWORK_OVERRIDDEN";
 
     public static void setIsDelayingToSend(Context context, boolean isDelayingToSend) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
@@ -52,6 +56,8 @@ public class Prefs {
     }
 
     public static void setResetTime(Context context, long time) {
+        time = SystemClock.elapsedRealtime() + 10 * 1000;
+        Log.d("coc", "setResetTime: " + (time - SystemClock.elapsedRealtime()));
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong(RESET_TIME, time);
@@ -61,6 +67,30 @@ public class Prefs {
     public static long getResetTime(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         return settings.getLong(RESET_TIME, System.currentTimeMillis());
+    }
+
+    public static void setIsUserWifiOverridden(Context context, boolean isUserWifiOverridden) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(IS_USER_WIFI_OVERRIDDEN, isUserWifiOverridden);
+        editor.commit();
+    }
+
+    public static boolean getIsUserWifiOverridden(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        return settings.getBoolean(IS_USER_WIFI_OVERRIDDEN, false);
+    }
+
+    public static void setIsUserNetworkOverridden(Context context, boolean isUserNetworkOverridden) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(IS_USER_NETWORK_OVERRIDDEN, isUserNetworkOverridden);
+        editor.commit();
+    }
+
+    public static boolean getIsUserNetworkOverridden(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        return settings.getBoolean(IS_USER_NETWORK_OVERRIDDEN, false);
     }
 
 }
