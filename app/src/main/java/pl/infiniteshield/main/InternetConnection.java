@@ -6,20 +6,16 @@ import android.net.wifi.WifiManager;
 public class InternetConnection {
 
     public static void setEnabled(Context context, boolean enabled) {
-        if (isWifi()) {
-            setWifiEnabled(context, enabled);
-        }
-        if (isNetwork()) {
-            setNetworkEnabled(context, enabled);
-        }
+        setWifiEnabled(context, enabled);
+        setNetworkEnabled(context, enabled);
     }
 
-    private static boolean isWifi() {
-        // TODO: implement
-        return false;
+    private static boolean isWifiEnabled(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        return wifiManager.isWifiEnabled();
     }
 
-    private static boolean isNetwork() {
+    private static boolean isNetworkEnabled(Context context) {
         // TODO: implement
         return false;
     }
