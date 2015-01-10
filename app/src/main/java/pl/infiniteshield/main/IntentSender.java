@@ -15,7 +15,7 @@ public class IntentSender {
         Log.d("coc", "sendAfterDelay: " + delay);
 
         getAlarmManager(context).set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + delay,
-				getAlarmIntent(context));
+                getAlarmIntent(context));
         Prefs.setIsDelayingToSend(context, true);
     }
 
@@ -23,7 +23,7 @@ public class IntentSender {
         Log.d("coc", "cancelSendAfterDelay");
 
         getAlarmManager(context).cancel(getAlarmIntent(context));
-	}
+    }
 
     private static AlarmManager getAlarmManager(Context context) {
         return (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

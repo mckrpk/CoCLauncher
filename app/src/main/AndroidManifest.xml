@@ -28,7 +28,7 @@
         <service
             android:name=".IntentReceiver"
             android:exported="false" />
-        <receiver android:name=".widget.ShieldWidgetProvider">
+        <receiver android:name=".WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="pl.infiniteshield.UPDATE_WIDGET_ACTION" />

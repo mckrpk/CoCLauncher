@@ -38,7 +38,6 @@ public class Prefs {
         return settings.getBoolean(IS_SCREEN_SETTING_CHANGED_KEY, false);
     }
 
-
     public static void setUserSleepSetting(Context context, int userSleepSetting) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         SharedPreferences.Editor editor = settings.edit();
