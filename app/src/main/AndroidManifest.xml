@@ -3,6 +3,8 @@
     package="pl.infiniteshield.main">
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
