@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.infiniteshield.main">
 
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -24,13 +28,14 @@
         <service
             android:name=".IntentReceiver"
             android:exported="false" />
-        <receiver android:name=".widget.ShieldWidgetProvider" >
+        <receiver android:name=".widget.ShieldWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="pl.infiniteshield.UPDATE_WIDGET_ACTION" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/my_widget_info" />
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/my_widget_info" />
         </receiver>
     </application>
 
