@@ -3,15 +3,57 @@ package pl.infiniteshield.main;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class InternetConnection {
 
-    public static void setEnabled(Context context, boolean enabled) {
-        setWifiEnabled(context, enabled);
-        setNetworkEnabled(context, enabled);
+    private static final int SLEEP_AFTER_DISABLE = 3000;
+    private static final int SLEEP_AFTER_ENABLE = 7000;
+
+    public static void reset(Context context) {
+        Log.d("coc", "reset: disable");
+        InternetConnection.setEnabled(context, false);
+        sleep(SLEEP_AFTER_DISABLE);
+        Log.d("coc", "reset: enable");
+        InternetConnection.setEnabled(context, true);
+        sleep(SLEEP_AFTER_ENABLE);
+    }
+
+    private static void sleep(long time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void setEnabled(Context context, boolean enabled) {
+        if (enabled) {
+            if (Prefs.getIsUserWifiOverridden(context)) {
+                Prefs.setIsUserWifiOverridden(context, false);
+                setWifiEnabled(context, true);
+                Log.d("coc", "enable wifi");
+            }
+            if (Prefs.getIsUserNetworkOverridden(context)) {
+                Prefs.setIsUserNetworkOverridden(context, false);
+                setNetworkEnabled(context, true);
+                Log.d("coc", "enable network");
+            }
+        } else {
+            if (isWifiEnabled(context)) {
+                Prefs.setIsUserWifiOverridden(context, true);
+                setWifiEnabled(context, false);
+                Log.d("coc", "disable wifi");
+            }
+            if (isNetworkEnabled(context)) {
+                Prefs.setIsUserNetworkOverridden(context, true);
+                setNetworkEnabled(context, false);
+                Log.d("coc", "disable network");
+            }
+        }
     }
 
     /**

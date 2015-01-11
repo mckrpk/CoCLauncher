@@ -1,6 +1,7 @@
 package pl.infiniteshield.main;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.provider.Settings;
 
 public class Shield {
@@ -17,6 +18,7 @@ public class Shield {
         } else {
             Shield.setInfiniteScreen(context);
             IntentSender.sendAfterDelay(context, 0);
+            Prefs.setResetTime(context, SystemClock.elapsedRealtime() + RandomDelay.getNextLong());
             return true;
         }
     }

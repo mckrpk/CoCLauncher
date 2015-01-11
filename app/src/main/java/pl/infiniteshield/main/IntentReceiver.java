@@ -2,6 +2,7 @@ package pl.infiniteshield.main;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.util.Log;
 
 public class IntentReceiver extends IntentService {
@@ -16,11 +17,15 @@ public class IntentReceiver extends IntentService {
             return;
         }
 
+        if (SystemClock.elapsedRealtime() > Prefs.getResetTime(this)) {
+            InternetConnection.reset(this);
+            Prefs.setResetTime(this, SystemClock.elapsedRealtime() + RandomDelay.getNextLong());
+        }
+
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans");
         startActivity(launchIntent);
 
-        int delay = RandomDelay.getNextShort();
-        Log.d("coc", "onHandleIntent: " + delay);
-        IntentSender.sendAfterDelay(this, delay); // send next intent after random delay
+        IntentSender.sendAfterDelay(this, RandomDelay.getNextShort()); // send next intent after random delay
     }
+
 }

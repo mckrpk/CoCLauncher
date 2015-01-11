@@ -56,7 +56,6 @@ public class Prefs {
     }
 
     public static void setResetTime(Context context, long time) {
-        time = SystemClock.elapsedRealtime() + 10 * 1000;
         Log.d("coc", "setResetTime: " + (time - SystemClock.elapsedRealtime()));
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         SharedPreferences.Editor editor = settings.edit();
@@ -66,7 +65,7 @@ public class Prefs {
 
     public static long getResetTime(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
-        return settings.getLong(RESET_TIME, System.currentTimeMillis());
+        return settings.getLong(RESET_TIME, 0);
     }
 
     public static void setIsUserWifiOverridden(Context context, boolean isUserWifiOverridden) {

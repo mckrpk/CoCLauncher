@@ -24,7 +24,8 @@ public class MainActivity extends ActionBarActivity {
         startShield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateUI(Shield.toggle(MainActivity.this));
+                boolean shieldActive = Shield.toggle(MainActivity.this);
+                updateUI(shieldActive);
                 sendBroadcast(new Intent(WidgetProvider.UPDATE_WIDGET_ACTION));
             }
         });
@@ -45,7 +46,6 @@ public class MainActivity extends ActionBarActivity {
         if (shieldActive) {
             startShield.setBackgroundResource(R.drawable.on);
             shieldStatus.setText(R.string.shield_active);
-            Prefs.setResetTime(this, SystemClock.elapsedRealtime() + RandomDelay.getNextLong());
         } else {
             startShield.setBackgroundResource(R.drawable.off);
             shieldStatus.setText(R.string.shield_not_active);
