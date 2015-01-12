@@ -17,11 +17,11 @@ public class Shield {
             IntentSender.cancelSendAfterDelay(context);
             Prefs.setIsDelayingToSend(context, false);
             Shield.restoreUserScreenSetting(context);
-			enableKeyguard(context, true);
-			return false;
-		} else {
-			enableKeyguard(context, false);
-			Shield.setInfiniteScreen(context);
+            enableKeyguard(context, true);
+            return false;
+        } else {
+            enableKeyguard(context, false);
+            Shield.setInfiniteScreen(context);
             IntentSender.sendAfterDelay(context, 0);
             Prefs.setResetTime(context, SystemClock.elapsedRealtime() + RandomDelay.getNextLong());
             return true;
@@ -32,23 +32,21 @@ public class Shield {
         return Prefs.getIsDelayingToSend(context);
     }
 
-	public static void wakeDevice(Context context, int time)
-	{
-		PowerManager.WakeLock screenLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock
-				(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
-		screenLock.acquire(time + 3000);
-	}
+    public static void wakeDevice(Context context, int time) {
+        PowerManager.WakeLock screenLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock
+                (PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
+        screenLock.acquire(time + 3000);
+    }
 
-	private static void enableKeyguard(Context context, boolean enable)
-	{
-		KeyguardManager.KeyguardLock keyguardLock = ((KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE))
-				.newKeyguardLock("TAG");
-		if (enable) {
-			keyguardLock.reenableKeyguard();
-		}else{
-			keyguardLock.disableKeyguard();
-		}
-	}
+    private static void enableKeyguard(Context context, boolean enable) {
+        KeyguardManager.KeyguardLock keyguardLock = ((KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE))
+                .newKeyguardLock("TAG");
+        if (enable) {
+            keyguardLock.reenableKeyguard();
+        } else {
+            keyguardLock.disableKeyguard();
+        }
+    }
 
     private static void setInfiniteScreen(Context context) {
         if (!Prefs.getIsUserScreenTimeoutOverridden(context)) {

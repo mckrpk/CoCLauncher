@@ -16,55 +16,53 @@ public class InternetConnection {
 
     private static final int SLEEP_AFTER_DISABLE = 5000;
     private static final int MAX_SLEEP_AFTER_ENABLE = 18000;
-	private static boolean canContinue = false;
-	private static int counter = 0;
+    private static boolean canContinue = false;
+    private static int counter = 0;
 
-	private static class NetworkChangedReceiver extends BroadcastReceiver{
-		@Override
-		public void onReceive(Context context, Intent intent)
-		{
-			NetworkInfo networkInfo = null;
-			if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
-				networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-			} else if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-				networkInfo = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
-			}
-			Log.d("coc", "Wifi is connected: " + String.valueOf(networkInfo));
-			if (networkInfo != null && networkInfo.isConnected()) {
-				unlockSleep();
-			}
-		}
-	}
+    private static class NetworkChangedReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            NetworkInfo networkInfo = null;
+            if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+                networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+            } else if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+                networkInfo = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+            }
+            Log.d("coc", "Internet update: " + String.valueOf(networkInfo));
+            if (networkInfo != null && networkInfo.isConnected()) {
+                unlockSleep();
+            }
+        }
+    }
 
     public static void reset(Context context) {
         Log.d("coc", "reset: disable");
         InternetConnection.setEnabled(context, false);
         sleep(SLEEP_AFTER_DISABLE);
         Log.d("coc", "reset: enable");
-		InternetConnection.setEnabled(context, true);
-		counter = 0;
-		canContinue = false;
-		NetworkChangedReceiver networkChangedReceiver = new NetworkChangedReceiver();
-		IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-		intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-		context.registerReceiver(networkChangedReceiver, intentFilter);
+        InternetConnection.setEnabled(context, true);
+        counter = 0;
+        canContinue = false;
+        NetworkChangedReceiver networkChangedReceiver = new NetworkChangedReceiver();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        context.registerReceiver(networkChangedReceiver, intentFilter);
 
-		long startTime = System.currentTimeMillis();
-		while (!canContinue && System.currentTimeMillis() - startTime < MAX_SLEEP_AFTER_ENABLE) {
-			Log.d("coc", "reset: sleep 1 second");
-			sleep(1000);
-		}
-		context.unregisterReceiver(networkChangedReceiver);
-		Log.d("coc", "reset: after enable sleep");
-	}
+        long startTime = System.currentTimeMillis();
+        while (!canContinue && System.currentTimeMillis() - startTime < MAX_SLEEP_AFTER_ENABLE) {
+            Log.d("coc", "reset: sleep 1 second");
+            sleep(1000);
+        }
+        context.unregisterReceiver(networkChangedReceiver);
+        Log.d("coc", "reset: after enable sleep");
+    }
 
-	private static void unlockSleep()
-	{
-		counter++;
-		if (counter > 1) {
-			canContinue = true;
-		}
-	}
+    private static void unlockSleep() {
+        counter++;
+        if (counter > 1) {
+            canContinue = true;
+        }
+    }
 
     private static void sleep(long time) {
         try {
@@ -118,8 +116,8 @@ public class InternetConnection {
      */
     private static boolean isNetworkEnabled(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		return networkInfo!=null && networkInfo.isConnected();
+        NetworkInfo networkInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        return networkInfo != null && networkInfo.isConnected();
     }
 
     private static void setNetworkEnabled(Context context, boolean enabled) {
