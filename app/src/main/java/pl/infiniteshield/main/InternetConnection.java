@@ -14,10 +14,10 @@ import java.lang.reflect.Method;
 
 public class InternetConnection {
 
-    private static final int SLEEP_AFTER_DISABLE = 5000;
+    private static final int SLEEP_AFTER_DISABLE = 1000;
     private static final int MAX_SLEEP_AFTER_ENABLE = 18000;
     private static boolean canContinue = false;
-    private static int counter = 0;
+    private static int secondsWaitingForConnection = 0;
 
     private static class NetworkChangedReceiver extends BroadcastReceiver {
         @Override
@@ -30,7 +30,10 @@ public class InternetConnection {
             }
             Log.d("coc", "Internet update: " + String.valueOf(networkInfo));
             if (networkInfo != null && networkInfo.isConnected()) {
-                unlockSleep();
+                secondsWaitingForConnection++;
+                if (secondsWaitingForConnection > 1) {
+                    canContinue = true;
+                }
             }
         }
     }
@@ -41,7 +44,7 @@ public class InternetConnection {
         sleep(SLEEP_AFTER_DISABLE);
         Log.d("coc", "reset: enable");
         InternetConnection.setEnabled(context, true);
-        counter = 0;
+        secondsWaitingForConnection = 0;
         canContinue = false;
         NetworkChangedReceiver networkChangedReceiver = new NetworkChangedReceiver();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -55,13 +58,6 @@ public class InternetConnection {
         }
         context.unregisterReceiver(networkChangedReceiver);
         Log.d("coc", "reset: after enable sleep");
-    }
-
-    private static void unlockSleep() {
-        counter++;
-        if (counter > 1) {
-            canContinue = true;
-        }
     }
 
     private static void sleep(long time) {
