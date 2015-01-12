@@ -10,17 +10,18 @@ import java.lang.reflect.Method;
 
 public class InternetConnection {
 
-    private static final int SLEEP_AFTER_DISABLE = 3000;
-    private static final int SLEEP_AFTER_ENABLE = 7000;
+    private static final int SLEEP_AFTER_DISABLE = 5000;
+    private static final int SLEEP_AFTER_ENABLE = 12000;
 
     public static void reset(Context context) {
         Log.d("coc", "reset: disable");
         InternetConnection.setEnabled(context, false);
         sleep(SLEEP_AFTER_DISABLE);
         Log.d("coc", "reset: enable");
-        InternetConnection.setEnabled(context, true);
-        sleep(SLEEP_AFTER_ENABLE);
-    }
+		InternetConnection.setEnabled(context, true);
+		sleep(SLEEP_AFTER_ENABLE);
+		Log.d("coc", "reset: after enable sleep");
+	}
 
     private static void sleep(long time) {
         try {

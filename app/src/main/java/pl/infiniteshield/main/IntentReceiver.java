@@ -25,7 +25,9 @@ public class IntentReceiver extends IntentService {
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans");
         startActivity(launchIntent);
 
-        IntentSender.sendAfterDelay(this, RandomDelay.getNextShort()); // send next intent after random delay
+		int nextShort = RandomDelay.getNextShort();
+		Shield.wakeDevice(this, nextShort);
+		IntentSender.sendAfterDelay(this, nextShort); // send next intent after random delay
     }
 
 }

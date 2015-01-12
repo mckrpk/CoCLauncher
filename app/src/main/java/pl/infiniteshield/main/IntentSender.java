@@ -34,8 +34,6 @@ public class IntentSender {
     }
 
     private static Intent createReceiverIntent(Context context) {
-        Intent receiverIntent = new Intent("pl.infiniteshield.LAUNCH_ACTION");
-        receiverIntent.setClass(context, IntentReceiver.class);
-        return receiverIntent;
+     	return  new Intent(context, IntentReceiver.class);
     }
 }
