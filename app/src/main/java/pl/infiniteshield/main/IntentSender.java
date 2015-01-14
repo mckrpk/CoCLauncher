@@ -9,8 +9,6 @@ import android.util.Log;
 
 public class IntentSender {
 
-    private static final int REQUEST_CODE = 666;
-
     public static void sendAfterDelay(Context context, final int delay) {
         Log.d("coc", "sendAfterDelay: " + delay);
 
@@ -30,10 +28,10 @@ public class IntentSender {
     }
 
     private static PendingIntent getAlarmIntent(Context context) {
-        return PendingIntent.getService(context, REQUEST_CODE, createReceiverIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getService(context, 666, createReceiverIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private static Intent createReceiverIntent(Context context) {
-     	return  new Intent(context, IntentReceiver.class);
+        return new Intent(context, IntentReceiver.class);
     }
 }
