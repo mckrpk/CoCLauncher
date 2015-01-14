@@ -6,20 +6,21 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
 
-
 public class Shield {
 
     public static final int INFINITE_SCREEN_OFF_TIMEOUT = 2147483647;
     public static final int DEFAULT_SCREEN_OFF_TIMEOUT = 60 * 1000;
 
     public static boolean toggle(Context context) {
-        if (isActivated(context)) {
+        if (isActive(context)) {
+            // turn off
             IntentSender.cancelSendAfterDelay(context);
             Prefs.setIsDelayingToSend(context, false);
             Shield.restoreUserScreenSetting(context);
             enableKeyguard(context, true);
             return false;
         } else {
+            // turn on
             enableKeyguard(context, false);
             Shield.setInfiniteScreen(context);
             IntentSender.sendAfterDelay(context, 0);
@@ -28,7 +29,7 @@ public class Shield {
         }
     }
 
-    public static boolean isActivated(Context context) {
+    public static boolean isActive(Context context) {
         return Prefs.getIsDelayingToSend(context);
     }
 
