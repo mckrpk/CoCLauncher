@@ -18,7 +18,7 @@ public class WidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-            int resId = Shield.isActivated(context) ? R.drawable.widget_on : R.drawable.widget_off;
+            int resId = Shield.isActive(context) ? R.drawable.widget_on : R.drawable.widget_off;
             views.setInt(R.id.widget_btn, "setBackgroundResource", resId);
 
             Intent toggleIntent = new Intent(context, WidgetProvider.class);
@@ -49,7 +49,7 @@ public class WidgetProvider extends AppWidgetProvider {
             views.setInt(R.id.widget_btn, "setBackgroundResource", resId);
             appWidgetManager.updateAppWidget(appWidgetId, views);
         } else if (action.equals(UPDATE_WIDGET_ACTION)) {
-            if (Shield.isActivated(context)) {
+            if (Shield.isActive(context)) {
                 views.setInt(R.id.widget_btn, "setBackgroundResource", R.drawable.widget_on);
             } else {
                 views.setInt(R.id.widget_btn, "setBackgroundResource", R.drawable.widget_off);
