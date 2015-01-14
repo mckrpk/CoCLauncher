@@ -1,80 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/center_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true">
-
-        <Button
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center">
+    <Button
             android:id="@+id/start_shield"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_width="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="200dp"/>
 
-        <TextView
+    <TextView
             android:id="@+id/shield_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:text="@string/shield_not_active"
+            android:layout_marginTop="3dp"
+            android:textSize="16sp"
             android:layout_below="@+id/start_shield"
-            android:layout_centerHorizontal="true" />
-
-        <RelativeLayout
-            android:layout_below="@id/shield_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
-
-            <NumberPicker
-                android:id="@+id/hours_picker"
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/hours_label"
-                android:labelFor="@id/hours_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hours"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/hours_picker"
-                android:layout_toRightOf="@id/hours_picker"
-                android:layout_centerHorizontal="true" />
-
-            <NumberPicker
-                android:id="@+id/minutes_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/hours_label"
-                android:layout_toRightOf="@id/hours_label" />
-
-            <TextView
-                android:id="@+id/minutes_label"
-                android:labelFor="@id/hours_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/minutes"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/minutes_picker"
-                android:layout_toRightOf="@id/minutes_picker"
-                android:layout_centerHorizontal="true" />
-
-        </RelativeLayout>
-
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>
