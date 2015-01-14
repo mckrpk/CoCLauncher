@@ -2,7 +2,6 @@ package pl.infiniteshield.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
@@ -46,11 +45,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        if (Shield.isActivated(this)) {
-            updateUI(true);
-        } else {
-            updateUI(false);
-        }
+        updateUI(Shield.isActive(this));
     }
 
     private void updateUI(boolean shieldActive) {
