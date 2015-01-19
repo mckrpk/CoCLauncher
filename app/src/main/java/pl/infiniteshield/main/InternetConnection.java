@@ -14,10 +14,9 @@ import java.lang.reflect.Method;
 
 public class InternetConnection {
 
-    private static final int SLEEP_AFTER_DISABLE = 1000;
+    private static final int SLEEP_AFTER_DISABLE = 5000;
     private static final int MAX_SLEEP_AFTER_ENABLE = 18000;
-    private static boolean canContinue = false;
-    private static int secondsWaitingForConnection = 0;
+    private static volatile boolean canContinue = false;
 
     private static class NetworkChangedReceiver extends BroadcastReceiver {
         @Override
@@ -30,10 +29,8 @@ public class InternetConnection {
             }
             Log.d("coc", "Internet update: " + String.valueOf(networkInfo));
             if (networkInfo != null && networkInfo.isConnected()) {
-                secondsWaitingForConnection++;
-                if (secondsWaitingForConnection > 1) {
-                    canContinue = true;
-                }
+                Log.d("coc", "canContinue: true");
+                canContinue = true;
             }
         }
     }
@@ -44,7 +41,7 @@ public class InternetConnection {
         sleep(SLEEP_AFTER_DISABLE);
         Log.d("coc", "reset: enable");
         InternetConnection.setEnabled(context, true);
-        secondsWaitingForConnection = 0;
+        Log.d("coc", "reset: setEnabled(true)");
         canContinue = false;
         NetworkChangedReceiver networkChangedReceiver = new NetworkChangedReceiver();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -56,8 +53,9 @@ public class InternetConnection {
             Log.d("coc", "reset: sleep 1 second");
             sleep(1000);
         }
+
         context.unregisterReceiver(networkChangedReceiver);
-        Log.d("coc", "reset: after enable sleep");
+        Log.d("coc", "reset: end");
     }
 
     private static void sleep(long time) {
@@ -111,8 +109,10 @@ public class InternetConnection {
      * @return True, if network is enabled and WiFi is not.
      */
     private static boolean isNetworkEnabled(Context context) {
+        Log.d("coc", "isNetworkEnabled");
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        Log.d("coc", "isNetworkEnabled: " + (networkInfo != null && networkInfo.isConnected()));
         return networkInfo != null && networkInfo.isConnected();
     }
 
