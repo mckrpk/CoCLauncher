@@ -13,7 +13,7 @@ public class RandomDelay {
     private static final int LONG_VARIANCE = 5;
 
     /*
-     * @return Short delay in ms, a bit less than 5 seconds.
+     * @return Short delay in ms, a bit less than 5 minutes.
      */
     public static int getNextShort() {
         return 1000 * (int) (SHORT_MEAN + random.nextGaussian() * SHORT_VARIANCE);
