@@ -20,7 +20,7 @@ public class IntentReceiver extends IntentService {
             return;
         }
 
-        startForeground(1337, createNotification());
+        startForeground(NotificationHelper.NOTIFICATION_ID, NotificationHelper.createNotification(this, false));
         Log.d("coc", "started foreground");
 
         scheduleNextIntent();
@@ -34,14 +34,10 @@ public class IntentReceiver extends IntentService {
         startActivity(launchIntent);
     }
 
-    private Notification createNotification() {
-        return new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.shield_small)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.shield_small))
-                .setContentTitle("Infinite Shield")
-                .setContentText("Restarting Clash of Clans")
-                .setProgress(0, 0, true)
-                .build();
+    @Override
+    public void onDestroy() {
+        stopForeground(true);
+        NotificationHelper.showShieldNotification(this, false);
     }
 
     /**

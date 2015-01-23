@@ -41,6 +41,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/my_widget_info" />
         </receiver>
+        <receiver android:name=".NotificationReceiver" android:exported="false"/>
     </application>
 
 </manifest>

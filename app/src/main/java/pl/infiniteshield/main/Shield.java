@@ -18,6 +18,7 @@ public class Shield {
             Prefs.setIsDelayingToSend(context, false);
             Shield.restoreUserScreenSetting(context);
             enableKeyguard(context, true);
+            NotificationHelper.clearNotification(context);
             return false;
         } else {
             // turn on
@@ -25,6 +26,8 @@ public class Shield {
             Shield.setInfiniteScreen(context);
             IntentSender.sendAfterDelay(context, 0);
             Prefs.setResetTime(context, SystemClock.elapsedRealtime() + RandomDelay.getNextLong());
+            Prefs.setShieldStartTime(context, System.currentTimeMillis());
+            NotificationHelper.showShieldNotification(context, true);
             return true;
         }
     }
