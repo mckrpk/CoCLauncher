@@ -16,15 +16,13 @@ public class RandomDelay {
      * @return Short delay in ms, a bit less than 5 minutes.
      */
     public static int getNextShort() {
-//        return 1000 * (int) (SHORT_MEAN + random.nextGaussian() * SHORT_VARIANCE);
-        return 45000;
+        return 1000 * (int) (SHORT_MEAN + random.nextGaussian() * SHORT_VARIANCE);
     }
 
     /*
      * @return Long delay in ms, a bit less than 8 hours.
      */
     public static int getNextLong() {
-//        return 1000 * 60 * (int) (LONG_MEAN + random.nextGaussian() * LONG_VARIANCE);
-        return 85000;
+        return 1000 * 60 * (int) (LONG_MEAN + random.nextGaussian() * LONG_VARIANCE);
     }
 }
