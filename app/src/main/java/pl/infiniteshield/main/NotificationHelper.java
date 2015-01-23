@@ -16,7 +16,7 @@ import java.util.Locale;
 public class NotificationHelper {
 
     public static final int NOTIFICATION_ID = 12423;
-    public static final int STOP_ACTION_REQUEST_CODE = 1;
+    private static final int STOP_ACTION_REQUEST_CODE = 1;
 
     public static void showShieldNotification(Context context, boolean firstTime) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.
@@ -51,7 +51,8 @@ public class NotificationHelper {
                 .setContentText("Started at: " + startTimeText)
                 .setContentIntent(contentPendingIntent)
                 .addAction(R.drawable.ic_action_cancel, "Stop shield", stopPendingIntent)
-                .setProgress(0, 0, true).setUsesChronometer(true);
+                .setProgress(0, 0, true)
+                .setUsesChronometer(true);
 
         if (!firstTime) {
             long shieldStartTime = Prefs.getShieldStartTime(context);
