@@ -17,6 +17,7 @@ public class InternetConnection {
     private static final int SLEEP_AFTER_DISABLE = 5000;
     private static final int MAX_SLEEP_AFTER_ENABLE = 18000;
     private static volatile boolean canContinue = false;
+    private static volatile int broadcastCounter = 0;
 
     private static class NetworkChangedReceiver extends BroadcastReceiver {
         @Override
@@ -30,7 +31,10 @@ public class InternetConnection {
             Log.d("coc", "Internet update: " + String.valueOf(networkInfo));
             if (networkInfo != null && networkInfo.isConnected()) {
                 Log.d("coc", "canContinue: true");
-                canContinue = true;
+                broadcastCounter++;
+                if (broadcastCounter > 1) {
+                    canContinue = true;
+                }
             }
         }
     }
@@ -43,6 +47,7 @@ public class InternetConnection {
         InternetConnection.setEnabled(context, true);
         Log.d("coc", "reset: setEnabled(true)");
         canContinue = false;
+        broadcastCounter = 0;
         NetworkChangedReceiver networkChangedReceiver = new NetworkChangedReceiver();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
