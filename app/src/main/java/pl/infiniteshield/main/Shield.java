@@ -33,7 +33,13 @@ public class Shield {
         return Prefs.getIsDelayingToSend(context);
     }
 
-    public static void wakeDevice(Context context, int time) {
+    /**
+     * Acquire wake lock for a given amount of time. Screen can't turn off with acquired wake lock.
+     *
+     * @param context Context object.
+     * @param time    Time in ms.
+     */
+    public static void acquireWakeLock(Context context, int time) {
         PowerManager.WakeLock screenLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock
                 (PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
         screenLock.acquire(time + 3000);
