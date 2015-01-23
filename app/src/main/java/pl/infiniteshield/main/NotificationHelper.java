@@ -14,8 +14,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class NotificationHelper {
+
     public static final int NOTIFICATION_ID = 12423;
-    public static final int RESET_NOTIFICATION_ID = 95423;
     public static final int STOP_ACTION_REQUEST_CODE = 1;
 
     public static void showShieldNotification(Context context, boolean firstTime) {
