@@ -50,7 +50,7 @@ public class NotificationHelper {
                 .setContentTitle("Clash of Clans Infinite Shield")
                 .setContentText("Started at: " + startTimeText)
                 .setContentIntent(contentPendingIntent)
-                .addAction(R.drawable.ic_action_cancel, "Stop shield", stopPendingIntent)
+                .addAction(R.drawable.ic_action_cancel, "Stop", stopPendingIntent)
                 .setProgress(0, 0, true)
                 .setUsesChronometer(true);
 
