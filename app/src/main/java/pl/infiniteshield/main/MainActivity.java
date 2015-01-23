@@ -25,7 +25,6 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 boolean shieldActive = Shield.toggle(MainActivity.this);
                 updateUI(shieldActive);
-                sendBroadcast(new Intent(WidgetProvider.UPDATE_WIDGET_ACTION));
             }
         });
     }
