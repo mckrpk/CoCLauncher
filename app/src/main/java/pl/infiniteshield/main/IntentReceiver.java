@@ -1,11 +1,8 @@
 package pl.infiniteshield.main;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 public class IntentReceiver extends IntentService {
@@ -37,8 +34,8 @@ public class IntentReceiver extends IntentService {
     @Override
     public void onDestroy() {
         stopForeground(true);
-        //During service life notification was associated with it so it would disappear after service is dead.
-        //Hence we need to show notification once again.
+        // During service life notification was associated with it so it would disappear after service is dead.
+        // Hence we need to show notification once again.
         NotificationHelper.showShieldNotification(this, false);
     }
 

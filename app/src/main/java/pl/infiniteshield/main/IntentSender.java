@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 public class IntentSender {
+
     public static final int INTENT_REQUEST_CODE = 666;
     public static void sendAfterDelay(Context context, final int delay) {
         Log.d("coc", "sendAfterDelay: " + delay);

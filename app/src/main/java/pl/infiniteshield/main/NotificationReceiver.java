@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 public class NotificationReceiver extends BroadcastReceiver {
+
     public static final String ACTION_STOP = "action_stop";
 
     @Override

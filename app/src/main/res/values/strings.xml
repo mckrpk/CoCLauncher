@@ -11,5 +11,6 @@
     <string name="shield_active_top">Infinite Shield active</string>
     <string name="shield_not_active_top">Infinite Shield not active</string>
     <string name="shield_not_active">Start Clash of Clans and never logout</string>
+    <string name="game_not_installed">Clash of Clans is not installed</string>
 
 </resources>

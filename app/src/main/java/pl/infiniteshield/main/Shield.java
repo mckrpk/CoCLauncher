@@ -3,9 +3,11 @@ package pl.infiniteshield.main;
 import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.widget.Toast;
 
 public class Shield {
 
@@ -22,6 +24,11 @@ public class Shield {
             NotificationHelper.clearNotification(context);
             return false;
         } else {
+            // try to turn on
+            if (isClashOfClansInstalled(context)) {
+                Toast.makeText(context, R.string.game_not_installed, Toast.LENGTH_LONG).show();
+                return false;
+            }
             // turn on
             enableKeyguard(context, false);
             Shield.setInfiniteScreen(context);
@@ -31,6 +38,10 @@ public class Shield {
             NotificationHelper.showShieldNotification(context, true);
             return true;
         }
+    }
+
+    private static boolean isClashOfClansInstalled(Context context) {
+        return context.getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans") == null;
     }
 
     public static boolean isActive(Context context) {
