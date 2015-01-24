@@ -1,6 +1,7 @@
 package pl.infiniteshield.main;
 
 import android.app.KeyguardManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.os.PowerManager;
 import android.os.SystemClock;
@@ -33,7 +34,9 @@ public class Shield {
     }
 
     public static boolean isActive(Context context) {
-        return Prefs.getIsDelayingToSend(context);
+        boolean intentInSystem = PendingIntent.getService(context, IntentSender.INTENT_REQUEST_CODE, IntentSender.createReceiverIntent(context),
+                PendingIntent.FLAG_NO_CREATE) != null;
+        return intentInSystem && Prefs.getIsDelayingToSend(context);
     }
 
     /**
