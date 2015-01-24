@@ -25,7 +25,7 @@ public class Shield {
             return false;
         } else {
             // try to turn on
-            if (isClashOfClansInstalled(context)) {
+            if (!isClashOfClansInstalled(context)) {
                 Toast.makeText(context, R.string.game_not_installed, Toast.LENGTH_LONG).show();
                 return false;
             }
@@ -41,7 +41,7 @@ public class Shield {
     }
 
     private static boolean isClashOfClansInstalled(Context context) {
-        return context.getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans") == null;
+        return context.getPackageManager().getLaunchIntentForPackage("com.supercell.clashofclans") != null;
     }
 
     public static boolean isActive(Context context) {
