@@ -32,7 +32,9 @@
         <service
             android:name=".IntentReceiver"
             android:exported="false" />
-        <receiver android:name=".NotificationReceiver" android:exported="false"/>
+        <receiver
+            android:name=".NotificationReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>
