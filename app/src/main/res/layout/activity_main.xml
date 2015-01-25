@@ -22,10 +22,10 @@
         <TextView
             android:id="@+id/shield_status"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="64sp"
             android:text="@string/shield_not_active"
             android:layout_marginTop="3dp"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:textSize="16sp"
             android:layout_below="@+id/start_shield"
             android:layout_centerHorizontal="true" />
