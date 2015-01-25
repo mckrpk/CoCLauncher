@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Clash of Clans Infinite Shield</string>
+    <string name="app_name">CoC Infinite Shield</string>
     <string name="interval">Interval (in seconds):</string>
     <string name="start_now">Start Clash of Clans</string>
     <string name="time_in_ms">Time in seconds</string>

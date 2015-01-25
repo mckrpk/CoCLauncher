@@ -1,4 +1,4 @@
-package pl.infiniteshield.main;
+package com.infiniteshield.main;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -47,7 +47,7 @@ public class NotificationHelper {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.shield_small)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.shield_small))
-                .setContentTitle("Clash of Clans Infinite Shield")
+                .setContentTitle(context.getString(R.string.app_name))
                 .setContentText("Started at: " + startTimeText)
                 .setContentIntent(contentPendingIntent)
                 .addAction(R.drawable.ic_action_cancel, "Stop", stopPendingIntent)

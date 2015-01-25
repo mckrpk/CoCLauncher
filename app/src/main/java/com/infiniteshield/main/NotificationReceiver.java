@@ -1,4 +1,4 @@
-package pl.infiniteshield.main;
+package com.infiniteshield.main;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

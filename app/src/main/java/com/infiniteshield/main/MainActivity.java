@@ -1,6 +1,5 @@
-package pl.infiniteshield.main;
+package com.infiniteshield.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;

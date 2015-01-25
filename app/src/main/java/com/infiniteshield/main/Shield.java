@@ -1,9 +1,8 @@
-package pl.infiniteshield.main;
+package com.infiniteshield.main;
 
 import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
