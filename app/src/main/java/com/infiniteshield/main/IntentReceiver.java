@@ -17,6 +17,7 @@ public class IntentReceiver extends IntentService {
             return;
         }
 
+        Log.d("coc", (Prefs.getShieldEndTime(this) - SystemClock.elapsedRealtime()) + " to end");
         if (AppType.isFree(this) && SystemClock.elapsedRealtime() > Prefs.getShieldEndTime(this)) {
             Log.d("coc", "shield end time");
             Shield.toggle(this);
