@@ -10,8 +10,9 @@ import android.widget.Toast;
 
 public class Shield {
 
-    public static final int INFINITE_SCREEN_OFF_TIMEOUT = 2147483647;
     public static final int DEFAULT_SCREEN_OFF_TIMEOUT = 60 * 1000;
+    private static final int INFINITE_SCREEN_OFF_TIMEOUT = 2147483647;
+    private static final int DEMO_TIME = 20 * 60 * 1000;
 
     public static boolean toggle(Context context) {
         if (isActive(context)) {
@@ -34,6 +35,7 @@ public class Shield {
             IntentSender.sendAfterDelay(context, 0);
             Prefs.setResetTime(context, SystemClock.elapsedRealtime() + RandomDelay.getNextLong());
             Prefs.setShieldStartTime(context, System.currentTimeMillis());
+            Prefs.setShieldEndTime(context, SystemClock.elapsedRealtime() + DEMO_TIME);
             NotificationHelper.showShieldNotification(context, true);
             return true;
         }

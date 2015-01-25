@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">CoC Infinite Shield Demo</string>
+    <string name="shield_not_active">Start CoC and logout after 20 minutes, because this is demo. In full version it never logs you out.</string>
 
 </resources>

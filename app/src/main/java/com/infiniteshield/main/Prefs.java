@@ -16,6 +16,7 @@ public class Prefs {
     private static final String IS_USER_SCREEN_TIMEOUT_OVERRIDDEN = "IS_USER_SCREEN_TIMEOUT_OVERRIDDEN";
 
     private static final String SHIELD_START_TIME = "SHIELD_START_TIME";
+    private static final String SHIELD_END_TIME = "SHIELD_END_TIME";
     private static final String RESET_TIME = "RESET_TIME";
     private static final String IS_USER_WIFI_OVERRIDDEN = "IS_USER_WIFI_OVERRIDDEN";
     private static final String IS_USER_NETWORK_OVERRIDDEN = "IS_USER_NETWORK_OVERRIDDEN";
@@ -57,7 +58,6 @@ public class Prefs {
     }
 
     public static void setResetTime(Context context, long time) {
-        Log.d("coc", "setResetTime: " + (time - SystemClock.elapsedRealtime()));
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong(RESET_TIME, time);
@@ -79,6 +79,18 @@ public class Prefs {
     public static long getShieldStartTime(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
         return settings.getLong(SHIELD_START_TIME, 0);
+    }
+
+    public static void setShieldEndTime(Context context, long time) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putLong(SHIELD_END_TIME, time);
+        editor.commit();
+    }
+
+    public static long getShieldEndTime(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        return settings.getLong(SHIELD_END_TIME, 0);
     }
 
     public static void setIsUserWifiOverridden(Context context, boolean isUserWifiOverridden) {

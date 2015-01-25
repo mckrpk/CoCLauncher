@@ -17,6 +17,12 @@ public class IntentReceiver extends IntentService {
             return;
         }
 
+        if (AppType.isFree(this) && SystemClock.elapsedRealtime() > Prefs.getShieldEndTime(this)) {
+            Log.d("coc", "shield end time");
+            Shield.toggle(this);
+            return;
+        }
+
         startForeground(NotificationHelper.NOTIFICATION_ID, NotificationHelper.createNotification(this, false));
         Log.d("coc", "started foreground");
 
