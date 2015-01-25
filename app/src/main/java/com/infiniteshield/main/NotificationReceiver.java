@@ -12,7 +12,6 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         if (intent.getAction().equals(ACTION_STOP)) {
             Shield.toggle(context);
-            context.sendBroadcast(new Intent(MainActivity.UPDATE_UI_ACTION));
         }
     }
 }

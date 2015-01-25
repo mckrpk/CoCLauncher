@@ -3,6 +3,7 @@ package com.infiniteshield.main;
 import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -22,6 +23,7 @@ public class Shield {
             Shield.restoreUserScreenSetting(context);
             enableKeyguard(context, true);
             NotificationHelper.clearNotification(context);
+            context.sendBroadcast(new Intent(MainActivity.SHIELD_STATE_CHANGED_ACTION));
             return false;
         } else {
             // try to turn on
@@ -37,6 +39,7 @@ public class Shield {
             Prefs.setShieldStartTime(context, System.currentTimeMillis());
             Prefs.setShieldEndTime(context, SystemClock.elapsedRealtime() + DEMO_TIME);
             NotificationHelper.showShieldNotification(context, true);
+            context.sendBroadcast(new Intent(MainActivity.SHIELD_STATE_CHANGED_ACTION));
             return true;
         }
     }

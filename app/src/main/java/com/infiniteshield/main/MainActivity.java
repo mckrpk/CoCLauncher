@@ -15,12 +15,12 @@ public class MainActivity extends ActionBarActivity {
     private Button startShield;
     private TextView shieldStatus;
 
-    public static final String UPDATE_UI_ACTION = "com.infiniteshield.updateUI";
+    public static final String SHIELD_STATE_CHANGED_ACTION = "com.infiniteshield.shieldStateChanged";
 
-    public BroadcastReceiver stopShieldReceiver = new BroadcastReceiver() {
+    public BroadcastReceiver shieldStateChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            updateUI(false);
+            updateUI(Shield.isActive(context));
         }
     };
 
@@ -35,11 +35,10 @@ public class MainActivity extends ActionBarActivity {
         startShield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean shieldActive = Shield.toggle(MainActivity.this);
-                updateUI(shieldActive);
+                Shield.toggle(MainActivity.this);
             }
         });
-        registerReceiver(stopShieldReceiver, new IntentFilter(UPDATE_UI_ACTION));
+        registerReceiver(shieldStateChangedReceiver, new IntentFilter(SHIELD_STATE_CHANGED_ACTION));
     }
 
     @Override
@@ -50,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(stopShieldReceiver);
+        unregisterReceiver(shieldStateChangedReceiver);
         super.onDestroy();
     }
 
