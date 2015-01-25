@@ -2,11 +2,22 @@ package com.infiniteshield.main;
 
 import android.app.KeyguardManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.graphics.PixelFormat;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class Shield {
@@ -34,6 +45,7 @@ public class Shield {
             // turn on
             enableKeyguard(context, false);
             Shield.setInfiniteScreen(context);
+            context.startService(new Intent(context, ShieldPopupService.class));
             IntentSender.sendAfterDelay(context, 0);
             Prefs.setResetTime(context, SystemClock.elapsedRealtime() + RandomDelay.getNextLong());
             Prefs.setShieldStartTime(context, System.currentTimeMillis());
@@ -90,5 +102,11 @@ public class Shield {
         int previousSetting = Prefs.getUserScreenTimeout(context);
         Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, previousSetting);
         Prefs.setIsUserScreenTimeoutOverridden(context, false);
+    }
+
+
+    public static int dpToPx(Context context, int dp) {
+        Resources r = context.getResources();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
     }
 }

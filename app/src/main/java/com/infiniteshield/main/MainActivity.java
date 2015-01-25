@@ -31,7 +31,6 @@ public class MainActivity extends ActionBarActivity {
 
         startShield = (Button) findViewById(R.id.start_shield);
         shieldStatus = (TextView) findViewById(R.id.shield_status);
-
         startShield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
