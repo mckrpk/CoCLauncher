@@ -42,7 +42,9 @@ public class IntentReceiver extends IntentService {
         stopForeground(true);
         // During service life notification was associated with it so it would disappear after service is dead.
         // Hence we need to show notification once again.
-        NotificationHelper.showShieldNotification(this, false);
+        if (Shield.isActive(this)) {
+            NotificationHelper.showShieldNotification(this, false);
+        }
     }
 
     /**
