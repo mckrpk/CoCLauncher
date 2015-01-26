@@ -11,5 +11,16 @@
     <string name="hours">hours</string>
     <string name="minutes">minutes</string>
     <string name="schedule">Schedule</string>
+    <string name="help_title">Help</string>
+    <string name="help_content">
+        Just start the Shield and you will never be attacked!\n\n
+            &#8226; You can normally play CoC while Infinity Shield is active.\n
+            &#8226; You don\’t need to change any settings.\n
+            &#8226; You don\'t need rooted device.\n
+            &#8226; You don\’t need to worry about getting raided :)\n\n
+        How it works?\n
+        Shield starts CoC periodically, which keeps it logged in. It does not modify the state of the game.\n
+        Simple? Yes! That\'s why it works!
+    </string>
 
 </resources>
