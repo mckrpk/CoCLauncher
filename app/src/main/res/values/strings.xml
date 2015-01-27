@@ -7,5 +7,23 @@
     <string name="shield_active">Stop Shield</string>
     <string name="shield_not_active">Start the game and never logout</string>
     <string name="game_not_installed">Clash of Clans is not installed</string>
+    <string name="stop_shield">Stop Shield</string>
+    <string name="help_title">Help</string>
+    <string name="help_content">
+    <![CDATA[
+    <p>
+    Just start the Shield and you will never be attacked!
+    </p>
+        &#8226; You can normally play CoC while Infinity Shield is active.<br>
+        &#8226; You don\’t need to change any settings.<br>
+        &#8226; You don\'t need rooted device.<br>
+        &#8226; You don\’t eed o worry about getting raided :)<br>
+    <p>
+    How it works? <br>
+    Shield starts CoC periodically, which keeps it logged in. It does not modify the state of the game.<br>
+    Simple? Yes! That\'s why it works!
+    </p>
+    ]]>
+    </string>
 
 </resources>
