@@ -7,5 +7,9 @@
     <string name="shield_active">Stop Shield</string>
     <string name="shield_not_active">Start the game and never logout</string>
     <string name="game_not_installed">Clash of Clans is not installed</string>
+    <string name="stop_shield">Stop Shield</string>
+    <string name="hours">hours</string>
+    <string name="minutes">minutes</string>
+    <string name="schedule">Schedule</string>
 
 </resources>

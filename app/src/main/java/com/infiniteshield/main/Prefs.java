@@ -2,8 +2,6 @@ package com.infiniteshield.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.SystemClock;
-import android.util.Log;
 
 public class Prefs {
 
@@ -20,6 +18,9 @@ public class Prefs {
     private static final String RESET_TIME = "RESET_TIME";
     private static final String IS_USER_WIFI_OVERRIDDEN = "IS_USER_WIFI_OVERRIDDEN";
     private static final String IS_USER_NETWORK_OVERRIDDEN = "IS_USER_NETWORK_OVERRIDDEN";
+
+    public static final String IS_SCHEDULED = "IS_SCHEDULED";
+    public static final String SCHEDULER_DUE_TIME = "SCHEDULER_DUE_TIME";
 
     public static void setIsDelayingToSend(Context context, boolean isDelayingToSend) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
@@ -117,4 +118,27 @@ public class Prefs {
         return settings.getBoolean(IS_USER_NETWORK_OVERRIDDEN, false);
     }
 
+    public static void setBoolean(Context context, String key, boolean isUserNetworkOverridden) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(key, isUserNetworkOverridden);
+        editor.commit();
+    }
+
+    public static boolean getBoolean(Context context, String key) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        return settings.getBoolean(key, false);
+    }
+
+    public static void setLong(Context context, String key, long time) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putLong(key, time);
+        editor.commit();
+    }
+
+    public static long getLong(Context context, String key) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_FILENAME, 0);
+        return settings.getLong(key, 0);
+    }
 }

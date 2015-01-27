@@ -54,6 +54,12 @@ public class Shield {
         return intentInSystem && Prefs.getIsDelayingToSend(context);
     }
 
+    public static boolean isScheduled(Context context) {
+        boolean intentInSystem = PendingIntent.getBroadcast(context, IntentSender.INTENT_REQUEST_CODE, IntentSender.createSchedulerIntent(context),
+                PendingIntent.FLAG_NO_CREATE) != null;
+        return intentInSystem && Prefs.getBoolean(context, Prefs.IS_SCHEDULED);
+    }
+
     /**
      * Acquire wake lock for a given amount of time. Screen can't turn off with acquired wake lock.
      *
