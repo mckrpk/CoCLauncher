@@ -1,16 +1,11 @@
 package com.infiniteshield.main;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Html;
-import android.text.Spanned;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,7 +41,6 @@ public class MainActivity extends ActionBarActivity {
         registerReceiver(shieldStateChangedReceiver, new IntentFilter(SHIELD_STATE_CHANGED_ACTION));
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -67,31 +61,6 @@ public class MainActivity extends ActionBarActivity {
             startShield.setBackgroundResource(R.drawable.off);
             shieldStatus.setText(R.string.shield_not_active);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.help) {
-            showHelpDialog();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void showHelpDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        TextView contentView = new TextView(this);
-        Spanned spanned = Html.fromHtml(getText(R.string.help_content).toString());
-        contentView.setText(spanned);
-        builder.setTitle(R.string.help_title).setView(contentView);
-
-        builder.create().show();
     }
 
 }
