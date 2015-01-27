@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CoC Infinite Shield</string>
+    <string name="app_name">Shield for CoC</string>
     <string name="interval">Interval (in seconds):</string>
-    <string name="start_now">Start Clash of Clans</string>
     <string name="time_in_ms">Time in seconds</string>
-    <string name="bad_value_message">Sth went wrong</string>
-    <string name="launcher_service">Launcher service:</string>
-    <string name="shield_active">Stop Infinite Shield</string>
-    <string name="shield_active_top">Infinite Shield active</string>
-    <string name="shield_not_active_top">Infinite Shield not active</string>
-    <string name="shield_not_active">Start CoC and never logout</string>
+    <string name="shield_active">Stop Shield</string>
+    <string name="shield_not_active">Start the game and never logout</string>
     <string name="game_not_installed">Clash of Clans is not installed</string>
 
 </resources>

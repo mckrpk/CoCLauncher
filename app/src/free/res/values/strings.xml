@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CoC Infinite Shield Demo</string>
-    <string name="shield_not_active">Start CoC and logout after 20 minutes, because this is a demo. In full version it never logs you out.</string>
+    <string name="app_name">Shield for CoC Demo</string>
+    <string name="shield_not_active">Start the game and logout after 20 minutes, because this is a demo. In full version it never logs you out.</string>
 
 </resources>
