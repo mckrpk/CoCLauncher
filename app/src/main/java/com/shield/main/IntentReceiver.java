@@ -1,4 +1,4 @@
-package com.infiniteshield.main;
+package com.shield.main;
 
 import android.app.IntentService;
 import android.content.Intent;

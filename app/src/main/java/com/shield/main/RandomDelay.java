@@ -1,4 +1,4 @@
-package com.infiniteshield.main;
+package com.shield.main;
 
 import java.util.Random;
 

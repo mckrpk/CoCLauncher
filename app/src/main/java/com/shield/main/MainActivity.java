@@ -1,4 +1,4 @@
-package com.infiniteshield.main;
+package com.shield.main;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -31,7 +31,7 @@ public class MainActivity extends ActionBarActivity {
     private TextView scheduleCounterView;
     private CountDownTimer countDownTimer;
 
-    public static final String SHIELD_STATE_CHANGED_ACTION = "com.infiniteshield.shieldStateChanged";
+    public static final String SHIELD_STATE_CHANGED_ACTION = "SHIELD_STATE_CHANGED_ACTION";
 
     public BroadcastReceiver shieldStateChangedReceiver = new BroadcastReceiver() {
         @Override
@@ -205,7 +205,7 @@ public class MainActivity extends ActionBarActivity {
 
         TextView contentView = new TextView(this);
         contentView.setTextColor(Color.BLACK);
-        contentView.setPadding(10, 10, 10, 10);
+        contentView.setPadding(20, 20, 20, 20);
         contentView.setText(getString(R.string.help_content));
         builder.setTitle(R.string.help_title).setView(contentView);
 

@@ -1,4 +1,4 @@
-package com.infiniteshield.main;
+package com.shield.main;
 
 import android.app.Notification;
 import android.app.NotificationManager;
