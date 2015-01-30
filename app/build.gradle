@@ -4,7 +4,7 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
     defaultConfig {
-        applicationId "com.infiniteshield"
+        applicationId "com.shield"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
@@ -18,10 +18,10 @@ android {
     }
     productFlavors {
         free {
-            applicationId "com.infiniteshield.free"
+            applicationId "com.shield.free"
         }
         paid {
-            applicationId "com.infiniteshield.paid"
+            applicationId "com.shield.pro"
         }
     }
 }
